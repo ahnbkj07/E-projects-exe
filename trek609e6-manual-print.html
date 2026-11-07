@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Trek 609E-6 고전압 증폭기 사용자 설명서</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: #1d2330; background: #fff;
+    font-family: "Malgun Gothic", "Pretendard", sans-serif; font-size: 10.5pt; line-height: 1.6;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; page-break-after: always; }
+  .cover .bar { width: 60px; height: 6px; background: #c92a2a; margin-bottom: 18px; }
+  .cover h1 { font-size: 30pt; margin: 0 0 6px; line-height: 1.25; }
+  .cover .sub { font-size: 14pt; color: #5f6b7d; margin-bottom: 36px; }
+  .cover .kv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 150mm; }
+  .cover .kv div { border: 1px solid #e2e7ef; border-radius: 8px; padding: 10px 12px; }
+  .cover .kv b { display: block; font-size: 15pt; }
+  .cover .kv span { color: #5f6b7d; font-size: 9pt; }
+  .cover .meta { margin-top: auto; color: #5f6b7d; font-size: 9pt; border-top: 1px solid #e2e7ef; padding-top: 10px; }
+  .toc { page-break-after: always; }
+  .toc ol { font-size: 12pt; line-height: 2.1; padding-left: 20px; }
+  h2 { font-size: 16pt; margin: 0 0 10px; padding-bottom: 6px; border-bottom: 2px solid #c92a2a; }
+  h3 { font-size: 12pt; margin: 18px 0 6px; }
+  .chapter { page-break-before: always; }
+  .chapter.first { page-break-before: auto; }
+  .danger { background: #fdecec; border-left: 4px solid #c92a2a; padding: 10px 12px; border-radius: 6px; margin: 10px 0; }
+  .danger strong { color: #c92a2a; }
+  .note { background: #e7effd; border-left: 4px solid #2f6fde; padding: 8px 12px; border-radius: 6px; font-size: 9.5pt; margin: 10px 0; }
+  .warn { background: #fff4e5; color: #8a4b00; padding: 8px 12px; border-radius: 6px; font-size: 9.5pt; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 6px 0 10px; page-break-inside: avoid; }
+  th, td { text-align: left; padding: 6px 8px; border: 1px solid #d5dbe5; vertical-align: top; }
+  th { background: #f4f6f9; font-weight: 600; }
+  table.kvt th { width: 32%; }
+  table.num td, table.num th { text-align: center; }
+  ol.steps { padding-left: 22px; } ol.steps li { margin-bottom: 4px; }
+  ul.chk { list-style: none; padding-left: 0; }
+  ul.chk li { padding: 4px 0 4px 26px; position: relative; border-bottom: 1px dashed #e2e7ef; }
+  ul.chk li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 13px; height: 13px; border: 1.5px solid #1d2330; border-radius: 2px; }
+  code { background: #eef0f4; padding: 1px 5px; border-radius: 3px; font-family: Consolas, monospace; font-size: 9.5pt; }
+  .src { font-size: 8.5pt; color: #5f6b7d; margin-top: 24px; border-top: 1px solid #e2e7ef; padding-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="bar"></div>
+  <h1>Trek 609E-6<br>고전압 증폭기</h1>
+  <div class="sub">사용자 설명서</div>
+  <div class="kv">
+    <div><b>±4 kV</b><span>출력 전압</span></div>
+    <div><b>±20 mA</b><span>출력 전류</span></div>
+    <div><b>1000 V/V</b><span>DC 전압 이득</span></div>
+    <div><b>&gt;150 V/µs</b><span>슬루율</span></div>
+    <div><b>&gt;13 kHz</b><span>대신호 대역폭 (−3 dB)</span></div>
+    <div><b>0.1 %</b><span>이득 정확도 (FS)</span></div>
+  </div>
+  <div class="danger" style="margin-top:30px;max-width:150mm"><strong>⚠ 고전압 위험</strong> — 이 장비의 출력은 사람이 죽을 수 있는 에너지입니다. 사용 전에 2장 「안전」을 반드시 읽으세요.</div>
+  <div class="meta">작성일 2026-11-07 · Advanced Energy 공개 데이터시트를 바탕으로 정리한 사용 가이드입니다. 패널 라벨, 커넥터 핀 배치, 퓨즈 규격은 정식 운용 매뉴얼(P/N 23163)을 우선 따르세요.</div>
+</div>
+
+<div class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li>장비 개요</li>
+    <li>안전</li>
+    <li>구성 및 연결</li>
+    <li>운전 절차</li>
+    <li>계산 방법과 참고표</li>
+    <li>사양</li>
+    <li>문제 해결</li>
+  </ol>
+</div>
+
+<div class="chapter first">
+  <h2>1. 장비 개요</h2>
+  <p>Trek 609E-6은 DC부터 쓸 수 있는 고전압 전력 증폭기입니다. 저전압 입력(±4 V)을 1000배로 키워 최대 ±4 kV를 내보냅니다. 출력단은 <b>4상한(four-quadrant)</b> 방식이라 전류를 내보내기도(source) 받아들이기도(sink) 합니다. 그래서 용량성·리액티브 부하에서도 출력 파형이 정확하게 따라갑니다.</p>
+  <h3>주요 특징</h3>
+  <ul>
+    <li>용량성 부하 구동이 가능한 4상한 출력</li>
+    <li>폐루프 제어로 높은 정확도</li>
+    <li>단락 보호</li>
+    <li>DC 안정 — 프로그래머블 전원으로도 사용 가능</li>
+    <li>낮은 출력 노이즈</li>
+    <li>로컬·원격 HV On/Off, 스위치로 고르는 전류 제한(Limit) / 트립(Trip)</li>
+    <li>비반전·반전·차동 입력 구성</li>
+    <li>NIST 추적 가능한 교정 성적서 제공</li>
+  </ul>
+  <h3>주요 용도</h3>
+  <p>AC/DC 바이어스, 대기압 플라즈마, 유전체 장벽 방전(DBD), 전기활성 고분자(EAP), 전기영동·전자사진, 전기유변 유체, 정전 편향, 전기광학 변조, 강유전체 특성 평가, 이온빔 조향, 질량분석기, 재료 폴링 및 입자 가속기</p>
+</div>
+
+<div class="chapter">
+  <h2>2. 안전</h2>
+  <div class="danger"><strong>감전 사고는 되돌릴 수 없습니다.</strong> 아래 점검표를 모두 확인하기 전에는 HV를 켜지 마세요.</div>
+  <h3>2.1 운전 전 안전 점검표</h3>
+  <ul class="chk">
+    <li>2인 이상 작업자가 있다</li>
+    <li>장비 전원 전압 설정이 콘센트 전압과 같다</li>
+    <li>접지된 3선 전원 코드를 사용한다</li>
+    <li>부하·케이블의 노출 도체가 절연·차폐되어 있다</li>
+    <li>부하 귀환선(접지)이 확실히 연결되어 있다</li>
+    <li>신호원 출력이 0 V이고 ±4 V를 넘지 않도록 제한했다</li>
+    <li>전류 제한 / 트립 모드를 선택했다</li>
+    <li>접지봉이 손 닿는 곳에 있다</li>
+    <li>작업 구역에 관계자 외 인원이 없다</li>
+    <li>습도·결로 상태가 사용 조건 안이다</li>
+  </ul>
+  <h3>2.2 안전 수칙</h3>
+  <ul>
+    <li><b>혼자 작업하지 않기</b> — 고전압 작업은 2인 이상이 원칙입니다.</li>
+    <li><b>배선 전 HV OFF + 전원 OFF</b> — 부하·케이블을 만지기 전에 항상 출력을 끄세요.</li>
+    <li><b>잔류 전하 방전</b> — 용량성 부하는 전원을 꺼도 고전압이 남습니다. 접지봉으로 방전하고, 계측기로 0 V를 확인한 뒤 만지세요.</li>
+    <li><b>보호 접지</b> — 반드시 3선(접지) 전원 코드를 쓰세요. 장비 섀시와 부하 쪽 공통 접지를 확실히 연결하세요.</li>
+    <li><b>노출 도체 차폐</b> — 부하의 고전압 부분은 절연 커버나 인터록이 달린 함체 안에 두세요.</li>
+    <li><b>정격 케이블만 사용</b> — 기본 제공 HV 출력 케이블(P/N 43406)이나 동등 이상 정격의 케이블을 쓰세요.</li>
+    <li><b>환경 조건</b> — 0–40 °C, 상대습도 85 % 이하(결로 없음), 고도 2000 m 이하에서만 사용하세요.</li>
+    <li><b>통풍 확보</b> — 장비 주변 공기 흐름을 막지 마세요.</li>
+  </ul>
+</div>
+
+<div class="chapter">
+  <h2>3. 구성 및 연결</h2>
+  <h3>3.1 커넥터 및 연결 단자</h3>
+  <table class="kvt">
+    <tr><th>HV 출력</th><td>Alden 고전압 커넥터. 기본 제공 HV 출력 케이블(P/N 43406)로 부하에 연결합니다.</td></tr>
+    <tr><th>증폭기 입력</th><td>Amphenol 패널 마운트 커넥터. 입력 케이블 커넥터 조립품(P/N 43418)에 배선해서 씁니다. 입력 범위 0 ~ ±4 V.</td></tr>
+    <tr><th>전압 모니터 (BNC)</th><td>출력 전압의 1/1000. 예: 1.000 V → 1 kV. 출력 임피던스 47 Ω.</td></tr>
+    <tr><th>전류 모니터 (BNC)</th><td>0.5 V/mA. 예: 5.0 V → 10 mA. 출력 임피던스 47 Ω.</td></tr>
+    <tr><th>원격 HV ON/OFF (BNC)</th><td>외부 신호로 고전압 출력을 켜고 끕니다. 신호 레벨과 극성은 정식 매뉴얼을 확인하세요.</td></tr>
+    <tr><th>Out of Regulation (BNC)</th><td>출력이 명령값을 따라가지 못하는 상태를 알리는 상태 출력.</td></tr>
+    <tr><th>Fault/Trip 상태 (BNC)</th><td>과전류 보호로 트립되었는지 알려 주는 상태 출력.</td></tr>
+    <tr><th>전원 입력</th><td>공장에서 100 / 115 / 230 VAC 중 하나로 설정(48–63 Hz, 최대 220 VA). 장비 라벨을 확인하세요.</td></tr>
+  </table>
+  <h3>3.2 입력 구성</h3>
+  <p>입력 커넥터를 어떻게 배선하느냐에 따라 세 가지 모드로 동작합니다.</p>
+  <table>
+    <tr><th>구성</th><th>출력 식</th><th>입력 임피던스 (공칭)</th></tr>
+    <tr><td>비반전 (Non-inverting)</td><td><code>V<sub>OUT</sub> = +1000 × V<sub>A</sub></code></td><td>25 kΩ</td></tr>
+    <tr><td>반전 (Inverting)</td><td><code>V<sub>OUT</sub> = −1000 × V<sub>A</sub></code></td><td>50 kΩ</td></tr>
+    <tr><td>차동 (Differential)</td><td><code>V<sub>OUT</sub> = 1000 × (V<sub>A</sub> − V<sub>B</sub>)</code></td><td>50 kΩ</td></tr>
+  </table>
+  <p>차동 구성은 신호원과 장비 사이의 접지 루프 노이즈를 줄이고 싶을 때 유리합니다.</p>
+  <div class="warn">입력 커넥터의 핀 번호와 모드별 배선도는 공개 데이터시트에 없습니다. 정식 매뉴얼(P/N 23163)의 배선도를 따르세요.</div>
+  <h3>3.3 전류 제한 / 트립 모드</h3>
+  <ul>
+    <li><b>Current Limit</b> — 전류를 한계값에서 잡아 두고 출력은 계속 유지합니다. 출력 전압이 명령값보다 낮아질 수 있습니다.</li>
+    <li><b>Trip</b> — 과전류가 생기면 고전압 출력을 차단합니다. 부하 단락이나 아크가 걱정될 때 권장합니다.</li>
+  </ul>
+</div>
+
+<div class="chapter">
+  <h2>4. 운전 절차</h2>
+  <h3>4.1 기동</h3>
+  <ol class="steps">
+    <li>장비 라벨의 <b>전원 전압 설정</b>(100/115/230 VAC)이 콘센트 전압과 같은지 확인합니다.</li>
+    <li>전원 스위치 OFF 상태에서 <b>접지된 전원 코드</b>를 연결합니다.</li>
+    <li>신호원(함수발생기·DAQ 등) 출력을 <b>0 V</b>로 맞추고 입력 커넥터에 연결합니다. 신호원 출력이 ±4 V를 넘지 않도록 제한하세요.</li>
+    <li>HV 출력 케이블을 장비와 부하에 연결하고, 부하의 귀환(접지) 쪽도 연결합니다.</li>
+    <li>전압 모니터와 전류 모니터 BNC를 오실로스코프나 DMM에 연결합니다.</li>
+    <li>전류 제한 / 트립 모드를 선택합니다.</li>
+    <li>주변 인원을 대피시키고 <b>안전 점검표(2.1)</b>를 완료합니다.</li>
+    <li>전원 스위치를 ON합니다. 이때 HV 출력은 아직 OFF 상태여야 합니다.</li>
+    <li><b>HV ON</b>을 누릅니다(또는 원격 HV ON 신호를 줍니다).</li>
+    <li>입력을 <b>천천히</b> 올리면서 전압·전류 모니터를 지켜봅니다. 처음에는 낮은 전압부터 시험하세요.</li>
+  </ol>
+  <h3>4.2 정지</h3>
+  <ol class="steps">
+    <li>입력 신호를 0 V로 내립니다.</li>
+    <li>전압 모니터가 0 V 근처로 떨어졌는지 확인합니다.</li>
+    <li><b>HV OFF</b>를 누른 다음 전원 스위치를 OFF합니다.</li>
+    <li>부하를 접지봉으로 방전하고, 계측기로 0 V를 확인한 뒤 배선을 분리합니다.</li>
+  </ol>
+  <div class="note">모니터 출력의 출력 임피던스는 47 Ω입니다. 50 Ω 종단 입력에 연결하면 신호가 약 절반으로 줄어듭니다. 오실로스코프 입력은 <b>1 MΩ</b>으로 설정하세요.</div>
+</div>
+
+<div class="chapter">
+  <h2>5. 계산 방법과 참고표</h2>
+  <h3>5.1 입력 → 출력 전압</h3>
+  <table class="num">
+    <tr><th>입력 V<sub>A</sub></th><th>비반전 출력</th><th>반전 출력</th><th>전압 모니터</th></tr>
+    <tr><td>0.5 V</td><td>+500 V</td><td>−500 V</td><td>±0.5 V</td></tr>
+    <tr><td>1.0 V</td><td>+1.0 kV</td><td>−1.0 kV</td><td>±1.0 V</td></tr>
+    <tr><td>2.0 V</td><td>+2.0 kV</td><td>−2.0 kV</td><td>±2.0 V</td></tr>
+    <tr><td>3.0 V</td><td>+3.0 kV</td><td>−3.0 kV</td><td>±3.0 V</td></tr>
+    <tr><td>4.0 V (최대)</td><td>+4.0 kV</td><td>−4.0 kV</td><td>±4.0 V</td></tr>
+  </table>
+  <h3>5.2 모니터 판독값 환산</h3>
+  <table class="kvt">
+    <tr><th>출력 전압</th><td><code>출력 [kV] = 전압 모니터 [V]</code> (1/1000 비율)</td></tr>
+    <tr><th>출력 전류</th><td><code>출력 [mA] = 전류 모니터 [V] ÷ 0.5</code> — 예: 3.0 V → 6 mA, 10 V → 20 mA(최대)</td></tr>
+  </table>
+  <h3>5.3 용량성 부하에서 낼 수 있는 최대 사인파 주파수</h3>
+  <p>사인파 피크 전류는 <code>I<sub>pk</sub> = 2π · f · C · V<sub>pk</sub></code>입니다. 최대 주파수는 아래 세 한계 중 가장 작은 값입니다.</p>
+  <ul>
+    <li>전류 한계: <code>f = 0.020 ÷ (2π · C · V<sub>pk</sub>)</code></li>
+    <li>슬루율 한계: <code>f = 150 V/µs ÷ (2π · V<sub>pk</sub>)</code></li>
+    <li>대역폭 한계: 13 kHz (−3 dB). 왜곡을 1 % 이하로 하려면 약 6 kHz 이하.</li>
+  </ul>
+  <p>부하 정전용량 C에는 HV 케이블 정전용량도 더해야 합니다.</p>
+  <table class="num">
+    <tr><th>부하 C</th><th>V<sub>pk</sub> = 1 kV</th><th>V<sub>pk</sub> = 2 kV</th><th>V<sub>pk</sub> = 4 kV</th></tr>
+    <tr><td>0.1 nF</td><td>13 kHz <sup>B</sup></td><td>11.9 kHz <sup>S</sup></td><td>5.97 kHz <sup>S</sup></td></tr>
+    <tr><td>0.5 nF</td><td>6.37 kHz</td><td>3.18 kHz</td><td>1.59 kHz</td></tr>
+    <tr><td>1 nF</td><td>3.18 kHz</td><td>1.59 kHz</td><td>796 Hz</td></tr>
+    <tr><td>2 nF</td><td>1.59 kHz</td><td>796 Hz</td><td>398 Hz</td></tr>
+    <tr><td>5 nF</td><td>637 Hz</td><td>318 Hz</td><td>159 Hz</td></tr>
+    <tr><td>10 nF</td><td>318 Hz</td><td>159 Hz</td><td>80 Hz</td></tr>
+  </table>
+  <p style="font-size:9pt;color:#5f6b7d">표시 없음 = 전류(20 mA)로 제한, <sup>S</sup> = 슬루율로 제한, <sup>B</sup> = 대역폭으로 제한. 대략적인 설계 기준값이므로 실제로는 여유를 두세요.</p>
+</div>
+
+<div class="chapter">
+  <h2>6. 사양</h2>
+  <h3>6.1 성능</h3>
+  <table class="kvt">
+    <tr><th>출력 전압 범위</th><td>0 ~ ±4 kV DC 또는 피크 AC</td></tr>
+    <tr><th>출력 전류 범위</th><td>0 ~ ±20 mA DC 또는 피크 AC</td></tr>
+    <tr><th>입력 전압 범위</th><td>0 ~ ±4 V DC 또는 피크 AC</td></tr>
+    <tr><th>입력 임피던스</th><td>비반전 25 kΩ / 반전 50 kΩ / 차동 50 kΩ (공칭)</td></tr>
+    <tr><th>DC 전압 이득</th><td>1000 V/V (반전 −1000 V/V, 차동 1000(V<sub>A</sub>−V<sub>B</sub>))</td></tr>
+    <tr><th>DC 이득 정확도</th><td>풀스케일의 0.1 % 이내</td></tr>
+    <tr><th>DC 오프셋 전압</th><td>±2 V 미만</td></tr>
+    <tr><th>출력 노이즈</th><td>50 mV rms 미만</td></tr>
+    <tr><th>슬루율</th><td>150 V/µs 초과 (10–90 %, 대표값)</td></tr>
+    <tr><th>정착 시간</th><td>0 → 4 kV 스텝에서 150 µs 미만</td></tr>
+    <tr><th>대신호 대역폭</th><td>DC ~ 6 kHz 초과 (왜곡 1 %) / DC ~ 13 kHz 초과 (−3 dB)</td></tr>
+    <tr><th>소신호 대역폭</th><td>DC ~ 35 kHz 초과 (−3 dB)</td></tr>
+    <tr><th>안정도</th><td>시간 드리프트 100 ppm/hr 미만(비누적), 온도 드리프트 200 ppm/°C 미만</td></tr>
+  </table>
+  <h3>6.2 모니터 출력</h3>
+  <table>
+    <tr><th>항목</th><th>전압 모니터</th><th>전류 모니터</th></tr>
+    <tr><td>비율</td><td>출력의 1/1000</td><td>0.5 V/mA</td></tr>
+    <tr><td>DC 정확도</td><td>0.1 % FS 이내</td><td>0.5 % FS 이내</td></tr>
+    <tr><td>DC 오프셋</td><td>±2.5 mV 미만</td><td>±5 mV 미만</td></tr>
+    <tr><td>노이즈</td><td>2 mV rms 미만</td><td>10 mV 미만</td></tr>
+    <tr><td>출력 임피던스</td><td>47 Ω</td><td>47 Ω</td></tr>
+  </table>
+  <h3 style="page-break-before:always">6.3 전기·기구·환경</h3>
+  <table class="kvt">
+    <tr><th>전원</th><td>100 / 115 / 230 VAC 중 공장 설정, 48–63 Hz</td></tr>
+    <tr><th>소비 전력</th><td>최대 220 VA</td></tr>
+    <tr><th>크기 (H×W×D)</th><td>140 × 432 × 439 mm</td></tr>
+    <tr><th>무게</th><td>13.2 kg</td></tr>
+    <tr><th>사용 온도 / 습도 / 고도</th><td>0 ~ 40 °C / 85 % 이하, 결로 없음 / 2000 m 이하</td></tr>
+  </table>
+  <h3>6.4 구성품 및 액세서리</h3>
+  <table>
+    <tr><th>P/N</th><th>품목</th><th>비고</th></tr>
+    <tr><td>23163</td><td>운용 매뉴얼</td><td>기본 제공</td></tr>
+    <tr><td>43406</td><td>HV 출력 케이블</td><td>기본 제공</td></tr>
+    <tr><td>43418</td><td>입력 케이블 커넥터 조립품</td><td>기본 제공</td></tr>
+    <tr><td>N5011</td><td>전원 코드 (90–127 V용)</td><td>기본 제공, 230 V용은 제조사 문의</td></tr>
+    <tr><td>607RA / 607RAJ</td><td>19인치 랙 마운트 키트 (EIA / JIS 홀 간격)</td><td>별매</td></tr>
+  </table>
+</div>
+
+<div class="chapter">
+  <h2>7. 문제 해결</h2>
+  <table class="kvt">
+    <tr><th>증상</th><th>점검 사항</th></tr>
+    <tr><td>전원이 켜지지 않음</td><td>전원 코드와 콘센트를 확인하세요. 장비의 전원 전압 설정이 콘센트 전압과 맞는지 보세요. 퓨즈 교체는 정식 매뉴얼의 절차와 규격을 따르세요.</td></tr>
+    <tr><td>HV ON이 되지 않음</td><td>원격 HV ON/OFF 입력 상태와 Fault/Trip 상태를 확인하세요. 트립된 상태라면 원인을 없앤 뒤 다시 켜세요.</td></tr>
+    <tr><td>트립(Fault)이 반복됨</td><td>부하 단락, 아크, 연면 방전이 없는지 보세요. 용량성 부하에서 전류가 20 mA를 넘는지(5.3 참고표)와 습도도 확인하세요.</td></tr>
+    <tr><td>Out of Regulation 표시</td><td>전류 제한이 걸렸는지, 슬루율이나 대역폭을 넘었는지, 입력이 ±4 V를 넘었는지 확인하세요.</td></tr>
+    <tr><td>출력 파형이 찌그러짐</td><td>1 % 왜곡 기준 대역폭은 약 6 kHz입니다. 주파수나 진폭을 줄여 보세요. 용량성 부하라면 전류 한계 때문일 수 있습니다.</td></tr>
+    <tr><td>모니터 값이 절반으로 보임</td><td>오실로스코프 입력이 50 Ω 종단으로 되어 있을 수 있습니다. 1 MΩ으로 바꾸세요.</td></tr>
+    <tr><td>0 V 입력인데 출력이 조금 있음</td><td>DC 오프셋 사양(±2 V 미만) 안이면 정상입니다. 그보다 크면 입력 배선의 접지와 노이즈를 확인하세요.</td></tr>
+    <tr><td>노이즈가 큼</td><td>차동 입력 구성을 쓰거나, 신호원과 장비 접지를 한 점에 모으세요. 입력 케이블은 차폐선을 쓰세요.</td></tr>
+  </table>
+  <div class="note">교정과 내부 정비는 사용자가 직접 하지 마세요. 내부에 고전압이 남아 있을 수 있습니다. Advanced Energy 서비스(sales.support@aei.com, +1.970.221.0108)에 맡기세요.</div>
+  <div class="src">출처: Advanced Energy, Trek 609E-6 데이터시트 (ENG-HV-Amplifier-Trek-609E6-235-02), advancedenergy.com. 사양은 예고 없이 바뀔 수 있습니다. 실제 운용은 정식 운용 매뉴얼(P/N 23163)을 우선 따르세요.</div>
+</div>
+
+</body>
+</html>
